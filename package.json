@@ -1,0 +1,39 @@
+{
+  "name": "aomd-utils",
+  "version": "0.0.18",
+  "author": "Aomd",
+  "main": "dist/umd/index.js",
+  "module": "dist/es/index.js",
+  "homepage": "https://github.com/wacky-idea/WebUtils",
+  "description": "aomd 的工具集合",
+  "files": [
+    "dist",
+    "src",
+    "package.json",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wacky-idea/WebUtils.git"
+  },
+  "keywords": [
+    "tool"
+  ],
+  "bugs": {
+    "url": "https://github.com/wacky-idea/WebUtils/issues"
+  },
+  "scripts": {
+    "build": "gulp build",
+    "build:browser": "browserify --standalone AomdUtils ./dist/umd/index.js  > ./dist/aomd-utils.js",
+    "build:browser:min": "uglifyjs ./dist/aomd-utils.js > ./dist/aomd-utils.min.js"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "browserify": "^17.0.0",
+    "uglify-js": "^3.17.1",
+    "typescript": "^4.7.4",
+    "merge2": "^1.4.1"
+  }
+}
