@@ -1,12 +1,12 @@
-export * as Array from "./Array";
-export * as Browser from "./browser/index";
-export * as Color from "./Color";
-export * as Event from "./event/index";
-export * as Geometry from "./Geometry";
-export * as Number from "./Number";
-export * as Object from "./Object";
-export * as Screen from "./Screen";
-export * as String from "./String";
-export * as Type from "./Type";
-export * as Url from "./Url";
+export * as ArrayUtil from "./Array";
+export * as ColorUtil from "./Color";
+export * as GeometryUtil from "./Geometry";
+export * as NumberUtil from "./Number";
+export * as ObjectUtil from "./Object";
+export * as ScreenUtil from "./Screen";
+export * as StringUtil from "./String";
+export * as TypeUtil from "./Type";
+export * as UrlUtil from "./Url";
+export * as BrowserUtil from "./browser/index";
+export * as EventUtil from "./event/index";
 

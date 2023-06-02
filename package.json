@@ -17,7 +17,8 @@
     "url": "git+https://github.com/wacky-idea/WebUtils.git"
   },
   "keywords": [
-    "tool"
+    "tool",
+    "utils"
   ],
   "bugs": {
     "url": "https://github.com/wacky-idea/WebUtils/issues"
