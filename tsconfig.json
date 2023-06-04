@@ -3,7 +3,7 @@
     "module": "ESNext",
     "noImplicitAny": true,
     "preserveConstEnums": true,
-    "target": "es5",
+    "target": "esnext",
     "sourceMap": true,
     "declaration": true,
     "lib": [
