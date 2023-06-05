@@ -4,10 +4,9 @@
 name: npm-publish
 
 on:
-  release:
-    types: [created]
-  watch:
-    types: [started]
+  push:
+    tags:
+      - '*'
 
 jobs:
   publish-npm:
