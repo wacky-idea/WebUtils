@@ -1,4 +1,3 @@
-import { isBoolean, isNumber, isString } from "../Type";
 
 /**
  * 事件代理 将 current 事件代理到 target 上
@@ -11,19 +10,31 @@ export function proxyEvent(current: HTMLElement | Window, target: HTMLElement | 
   current.addEventListener(eventName, (e) => {
     const event = initEvent(eventName)
     let key: keyof Event
+    const keys = Object.keys(Object.getOwnPropertyDescriptors(Object.getPrototypeOf(e)))
+
     for (key in e) {
-      // 只代理 数字 字符 布尔类型
-      if (isNumber(e[key]) || isString(e[key]) || isBoolean(e[key])) {
-        try {
-          const descriptor = Object.getOwnPropertyDescriptor(e, key);
-          // 判断属性是否只读
-          if (descriptor.writable) {
-            // @ts-ignore
-            event[key] = e[key]
-          }
-        } catch (error) {
-          console.warn(error)
+      try {
+        if (keys.includes(key)) {
+          // @ts-ignore
+          // 无法为“AT_TARGET”赋值，因为它是只读属性。ts(2540)
+          // 无法为“BUBBLING_PHASE”赋值，因为它是只读属性。ts(2540)
+          // 无法为“CAPTURING_PHASE”赋值，因为它是只读属性。ts(2540)
+          // 无法为“NONE”赋值，因为它是只读属性。ts(2540)
+          // 无法为“bubbles”赋值，因为它是只读属性。ts(2540)
+          // 无法为“cancelable”赋值，因为它是只读属性。ts(2540)
+          // 无法为“composed”赋值，因为它是只读属性。ts(2540)
+          // 无法为“currentTarget”赋值，因为它是只读属性。ts(2540)
+          // 无法为“defaultPrevented”赋值，因为它是只读属性。ts(2540)
+          // 无法为“eventPhase”赋值，因为它是只读属性。ts(2540)
+          // 无法为“isTrusted”赋值，因为它是只读属性。ts(2540)
+          // 无法为“srcElement”赋值，因为它是只读属性。ts(2540)
+          // 无法为“target”赋值，因为它是只读属性。ts(2540)
+          // 无法为“timeStamp”赋值，因为它是只读属性。ts(2540)
+          // 无法为“type”赋值，因为它是只读属性。ts(2540)
+          event[key] = e[key]
         }
+      } catch (error) {
+        console.warn(error)
       }
     }
     target.dispatchEvent(event)
@@ -37,8 +48,7 @@ export function proxyEvent(current: HTMLElement | Window, target: HTMLElement | 
  * @returns
  */
 export function initEvent(eventName: keyof WindowEventMap, eventInitDict: EventInit = { bubbles: true, cancelable: true, composed: true }): Event {
-  let event: Event = null;
-
+  let event: Event;
   try {
     event = new Event(eventName, eventInitDict);
   } catch (error) {
