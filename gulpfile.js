@@ -19,7 +19,7 @@ function buildUMD() {
 }
 
 function buildES() {
-  return build("ESNext", "es");
+  return build("ES2015", "es");
 }
 
 function buildCJS() {
@@ -27,7 +27,7 @@ function buildCJS() {
 }
 
 function build(module = "AMD", dist = "amd") {
-  var tsconfig = ts.createProject("tsconfig.json", { module, removeComments: false });
+  var tsconfig = ts.createProject("tsconfig.json", { target: 'ES6', module, removeComments: false });
   var tsResult = tsconfig.src().pipe(tsconfig())
   return merge([
     tsResult.js.pipe(gulp.dest(`dist/${dist}`)),

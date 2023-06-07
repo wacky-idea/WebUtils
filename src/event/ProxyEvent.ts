@@ -10,12 +10,11 @@ export function proxyEvent(current: HTMLElement | Window, target: HTMLElement | 
   current.addEventListener(eventName, (e) => {
     const event = initEvent(eventName)
     let key: keyof Event
-    const keys = Object.keys(Object.getOwnPropertyDescriptors(Object.getPrototypeOf(e)))
-
+    // const keys = Object.keys(Object.getOwnPropertyDescriptors(Object.getPrototypeOf(e)))
+    const keys = ['type', 'timeStamp', 'target', 'srcElement', 'isTrusted', 'eventPhase', 'defaultPrevented', 'currentTarget', 'composed', 'cancelable', 'bubbles', 'NONE', 'CAPTURING_PHASE', 'BUBBLING_PHASE', 'AT_TARGET']
     for (key in e) {
       try {
-        if (keys.includes(key)) {
-          // @ts-ignore
+        if (!keys.includes(key)) {
           // 无法为“AT_TARGET”赋值，因为它是只读属性。ts(2540)
           // 无法为“BUBBLING_PHASE”赋值，因为它是只读属性。ts(2540)
           // 无法为“CAPTURING_PHASE”赋值，因为它是只读属性。ts(2540)
@@ -31,6 +30,7 @@ export function proxyEvent(current: HTMLElement | Window, target: HTMLElement | 
           // 无法为“target”赋值，因为它是只读属性。ts(2540)
           // 无法为“timeStamp”赋值，因为它是只读属性。ts(2540)
           // 无法为“type”赋值，因为它是只读属性。ts(2540)
+          // @ts-ignore
           event[key] = e[key]
         }
       } catch (error) {

@@ -1,64 +1,31 @@
+export class AEvent<T> {
+  private eventListeners: Map<string, ((data: T) => void)[]>;
 
-export class AEvent<EventList extends { [key: string]: Function[] }, Context extends any = any> {
+  constructor() {
+    this.eventListeners = new Map();
+  }
 
-  public eventList: EventList;
+  on(eventName: string, handler: (data: T) => void): void {
+    if (!this.eventListeners.has(eventName)) {
+      this.eventListeners.set(eventName, []);
+    }
+    this.eventListeners.get(eventName)?.push(handler);
+  }
 
-  /**
-   * @description: 触发事件
-   * @param {EventName} eventName
-   * @param {Model} arg
-   * @return {void}
-   */
-  emit(eventName: keyof EventList, arg: Context): void {
-    if (eventName in this.eventList) {
-      for (var fun of this.eventList[eventName]) {
-        fun(arg);
+  off(eventName: string, handler: (data: T) => void): void {
+    const listeners = this.eventListeners.get(eventName);
+    if (listeners) {
+      const index = listeners.indexOf(handler);
+      if (index !== -1) {
+        listeners.splice(index, 1);
       }
     }
   }
 
-  /**
-   * @description: 获取 eventlist 所有key
-   * @return {string[]}
-   */
-  get events(): string[] {
-    return Object.keys(this.eventList);
-  }
-
-  /**
-   * 监听事件
-   *
-   * @param {String} eventName
-   * @param {Function} fun
-   * @memberof AEvent
-   */
-  on(eventName: keyof typeof this.eventList, fun: (data: Context) => void) {
-    // 不在直接return
-    if (!(eventName in this.eventList)) {
-      return;
-    }
-    // 添加
-    this.eventList[eventName].push(fun);
-  }
-
-  /**
-   * 解绑事件
-   *
-   * @param {String} eventName
-   * @param {Function} fun
-   * @memberof AEvent
-   */
-  off(eventName: keyof typeof this.eventList, fun: (data: Context) => void): void {
-    // 不在直接return
-    if (!(eventName in this.eventList)) {
-      return;
-    }
-    const eventList = this.eventList[eventName];
-
-    for (var i = 0; i < eventList.length; i++) {
-      if (eventList[i] === fun) {
-        eventList.splice(i, 1);
-      }
+  emit(eventName: string, data: T): void {
+    const listeners = this.eventListeners.get(eventName);
+    if (listeners) {
+      listeners.forEach(handler => handler(data));
     }
   }
 }
