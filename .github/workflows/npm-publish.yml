@@ -4,9 +4,9 @@
 name: npm-publish
 
 on:
-  push:
+  create:
     tags:
-      - '*'
+      - "*"
 
 jobs:
   publish-npm:
