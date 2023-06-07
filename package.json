@@ -1,6 +1,6 @@
 {
   "name": "aomd-utils",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "author": "Aomd",
   "main": "dist/umd/index.js",
   "module": "dist/es/index.js",
