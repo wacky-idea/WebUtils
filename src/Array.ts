@@ -5,11 +5,22 @@
  * @param array
  * @returns
  */
-export function remove(item: any, array: any[]): any[] {
+export function removeByItem(item: any, array: any[]): any[] {
   var index = array.indexOf(item)
   if (index > -1) {
     array.splice(index, 1)
   }
+  return array
+}
+
+/**
+ * 通过 数组 下标删除
+ * @param index
+ * @param array
+ * @returns
+ */
+export function removeByIndex(index: number, array: any[]): any[] {
+  array.splice(index, 1)
   return array
 }
 
