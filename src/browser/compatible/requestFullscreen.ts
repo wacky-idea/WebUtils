@@ -2,10 +2,17 @@
  * 全屏
  */
 export const requestFullscreen = (options?: FullscreenOptions): Promise<void> => {
-  if (document) {
-    //@ts-ignore
-    const run = document.documentElement.requestFullscreen || document.documentElement.msRequestFullscreen || document.documentElement.mozRequestFullScreen || document.documentElement.webkitRequestFullscreen;
-    return run()
-  }
-  return new Promise((resolve, reject) => { reject() })
+  const dELE = document.documentElement
+    if ('requestFullscreen' in dELE) {
+      document.documentElement.requestFullscreen()
+    } else if ('msRequestFullscreen' in dELE) {
+      // @ts-ignore
+      document.documentElement['msRequestFullscreen']()
+    } else if ('mozRequestFullScreen' in dELE) {
+      // @ts-ignore
+      document.documentElement['mozRequestFullScreen']()
+    } else if ('webkitRequestFullscreen' in dELE) {
+      // @ts-ignore
+      document.documentElement['webkitRequestFullscreen']()
+    }
 }

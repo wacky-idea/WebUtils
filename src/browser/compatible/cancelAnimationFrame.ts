@@ -2,10 +2,18 @@
  * 取消动画函数
  *
  */
-export const cancelAnimationFrame = (handle: number): void => {
-  if (window) {
-    //@ts-ignore
-    const run = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.cancelRequestAnimationFrame;
-    run(handle)
-  }
-}
+type CancelAnimationFrameFn =
+  | ((handle: number) => void)
+  | ((handle: number) => void)[];
+
+  
+export const cancelAnimationFrame: CancelAnimationFrameFn =
+  window.cancelAnimationFrame ||
+  // @ts-ignore
+  window.webkitCancelAnimationFrame ||
+  // @ts-ignore
+  window.mozCancelAnimationFrame ||
+  // @ts-ignore
+  window.msCancelAnimationFrame ||
+  // @ts-ignore
+  window.oCancelAnimationFrame;
