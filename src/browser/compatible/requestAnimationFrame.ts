@@ -2,11 +2,19 @@
  * 动画函数
  *
  */
-export const requestAnimationFrame = (callback: FrameRequestCallback): number => {
-  if (window) {
-    //@ts-ignore
-    const run = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame;
-    return run(callback)
-  }
-  return 0;
-}
+export type RequestAnimationFrameFn =
+  | ((callback: FrameRequestCallback) => number)
+  | ((callback: FrameRequestCallback) => number)[];
+
+
+export const requestAnimationFrame: RequestAnimationFrameFn =
+  window.requestAnimationFrame ||
+  // @ts-ignore
+  window.webkitRequestAnimationFrame ||
+  // @ts-ignore
+  window.mozRequestAnimationFrame ||
+  // @ts-ignore
+  window.msRequestAnimationFrame ||
+  // @ts-ignore
+  window.oRequestAnimationFrame;
+

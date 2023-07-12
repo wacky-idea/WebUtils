@@ -1,13 +1,13 @@
 import { exitFullscreen } from "./browser/compatible/exitFullscreen";
 import { fullscreenElement } from "./browser/compatible/fullscreenElement";
-import { requestFullscreen } from "./browser/compatible/requestFullscreen";
+import { documentElementRequestFullscreen } from "./browser/compatible/requestFullscreen";
 
 /**
  * 开启全屏
  * @returns
  */
 export function openFullScreen(): Promise<void> {
-  return requestFullscreen();
+  return documentElementRequestFullscreen();
 }
 
 /**

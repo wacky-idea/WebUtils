@@ -2,11 +2,11 @@
  * 取消动画函数
  *
  */
-type CancelAnimationFrameFn =
+export type CancelAnimationFrameFn =
   | ((handle: number) => void)
   | ((handle: number) => void)[];
 
-  
+
 export const cancelAnimationFrame: CancelAnimationFrameFn =
   window.cancelAnimationFrame ||
   // @ts-ignore
