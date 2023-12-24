@@ -6,8 +6,12 @@
   "module": "dist/es/index.js",
   "umd:main": "dist/umd/index.js",
   "typings": "src/index.ts",
-  "homepage": "https://github.com/wacky-idea/web-utils#readme",
-  "description": "aomd 的工具集合",
+  "homepage": "https://github.com/wacky-idea/WebUtils#readme",
+  "description": "web 常用工具集合",
+  "directories": {
+    "src": "src",
+    "test": "test"
+  },
   "files": [
     "dist",
     "src",
@@ -16,14 +20,14 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wacky-idea/web-utils.git"
+    "url": "git+https://github.com/wacky-idea/WebUtils.git"
   },
   "keywords": [
     "tool",
     "utils"
   ],
   "bugs": {
-    "url": "https://github.com/wacky-idea/web-utils/issues"
+    "url": "https://github.com/wacky-idea/WebUtils/issues"
   },
   "scripts": {
     "build": "rollup -c",
