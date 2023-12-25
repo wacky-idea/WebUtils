@@ -17,6 +17,8 @@ export function openFullScreen(): Promise<void> {
 export function closeFullScreen(): Promise<void> {
   if (isFullScreen()) {
     return exitFullscreen();
+  } else {
+    return Promise.resolve();
   }
 }
 
