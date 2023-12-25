@@ -138,6 +138,13 @@ export function base64ToBlob(base64WithPrefix: string, mimeType: string) {
   return StringUtil.base64ToBlob(base64, mimeType)
 }
 
+/**
+ * 删除 base64WithPrefix 前缀
+ *
+ * @export
+ * @param {string} base64WithPrefix 携带文件协议的 base64 字符串
+ * @return {*}
+ */
 export function delBase64WithPrefix(base64WithPrefix: string) {
   // 匹配并提取不带"data"前缀的Base64部分
   const regex = /^data:[^;]+;base64,([^/]+)/;

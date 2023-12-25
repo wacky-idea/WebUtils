@@ -1,5 +1,5 @@
-import { UrlUtil } from ".";
 import { delBase64WithPrefix } from "./Url";
+import { UrlUtil } from "./index";
 
 /**
  * 文件转 base64
