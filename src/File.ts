@@ -1,4 +1,4 @@
-import { delBase64WithPrefix } from "./Url";
+import { GenerateVideoPreviewOptions as UrlGenerateVideoPreviewOptions, delBase64WithPrefix } from "./Url";
 import { UrlUtil } from "./index";
 
 /**
@@ -34,16 +34,22 @@ export function blobToBase64(blob: Blob): Promise<string> {
   });
 }
 
+
+export interface GenerateVideoPreviewOptions {
+  /** 视频文件 */
+  file: File | Blob;
+}
 /**
  * 通过文件获取视频第一帧
- * 
- * @param file 
- * @returns 
+ *
+ * @param file
+ * @returns
  */
-export function generateVideoPreview(file: File | Blob) {
+export function generateVideoPreview(option: GenerateVideoPreviewOptions & Omit<UrlGenerateVideoPreviewOptions, 'url'>) {
+  const { file } = option
   const tempUrl = URL.createObjectURL(file)
   return UrlUtil
-    .generateVideoPreview(tempUrl)
+    .generateVideoPreview({ ...option, url: tempUrl })
     .finally(() => {
       URL.revokeObjectURL(tempUrl)
     })

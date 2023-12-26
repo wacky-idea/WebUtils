@@ -63,3 +63,32 @@ export function base64ToBlob(base64: string, mimeType: string): Blob {
 
   return new Blob([new Uint8Array(stringToCharCodes(decodedData))], { type: mimeType });
 }
+
+/**
+ * 复制到剪切板
+ *
+ * @export
+ * @param {string} text
+ * @return {*}  {Promise<void>}
+ */
+export function copyTextToClipboard(text: string): Promise<void> {
+  if (navigator.clipboard) {
+    return navigator.clipboard.writeText(text)
+  } else {
+    return new Promise((resolve, reject) => {
+      const input = document.createElement('input');
+      input.value = text;
+      input.style.position = 'absolute';
+      input.style.zIndex = '-9999';
+      document.body.appendChild(input);
+      input.select();
+      const result = document.execCommand('copy');
+      if (result) {
+        resolve();
+      } else {
+        reject();
+      }
+      document.body.removeChild(input);
+    })
+  }
+}

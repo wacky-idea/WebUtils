@@ -12,26 +12,30 @@ export const getUrlParams = (key: string) => {
 
 export type GenerateVideoPreviewType = "blob" | "base64"
 
+export interface GenerateVideoPreviewOptions {
+  /** 视频文件地址 */
+  url: string
+  /** 预览秒数 */
+  seconds?: number
+  /** 超时时间 */
+  timeout?: number
+  /** 返回类型 */
+  type?: GenerateVideoPreviewType
+  /** 预览宽度 */
+  width?: number
+  /** 预览高度 */
+  height?: number
+}
+
 /**
- * 获取视频预览
+ * 视频预览
  *
  * @export
- * @param {string} url 视频文件地址
- * @param {number} [seconds=1] 预览第几秒
- * @param {number} [timeout=3000] 超时时间
- * @param {GenerateVideoPreviewType} [type="blob"] 返回类型
- * @param {number} [width=0] 预览宽度
- * @param {number} [height=0] 预览高度
+ * @param {GenerateVideoPreviewOptions} option
  * @return {*}  {(Promise<Blob | string>)}
  */
-export function generateVideoPreview(
-  url: string,
-  seconds: number = 1,
-  timeout = 3000,
-  type: GenerateVideoPreviewType = "blob",
-  width = 0,
-  height = 0
-): Promise<Blob | string> {
+export function generateVideoPreview(option: GenerateVideoPreviewOptions): Promise<Blob | string> {
+  let { url, seconds = 1, timeout = 3000, type = "blob", width = 0, height = 0 } = option
   return new Promise<Blob | string>((resolve, reject) => {
     let canvas = document.createElement("canvas")
     let context = canvas.getContext("2d")
@@ -70,7 +74,6 @@ export function generateVideoPreview(
     }
 
     const canplaythrough = () => {
-      console.log("canplaythrough")
       video.currentTime = seconds
     }
 
