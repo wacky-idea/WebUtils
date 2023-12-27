@@ -21,7 +21,7 @@ export function isNumber(o: any): boolean {
  * @param o
  * @returns
  */
-export function isObj(o: any): boolean {
+export function isObject(o: any): boolean {
   return toString(o).slice(8, -1) === "Object";
 }
 

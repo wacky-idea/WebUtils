@@ -1,19 +1,27 @@
-/**
- * 取消动画函数
- *
- */
 export type CancelAnimationFrameFn =
   | ((handle: number) => void)
   | ((handle: number) => void)[];
 
 
-export const cancelAnimationFrame: CancelAnimationFrameFn =
-  window.cancelAnimationFrame ||
-  // @ts-ignore
-  window.webkitCancelAnimationFrame ||
-  // @ts-ignore
-  window.mozCancelAnimationFrame ||
-  // @ts-ignore
-  window.msCancelAnimationFrame ||
-  // @ts-ignore
-  window.oCancelAnimationFrame;
+const methodMap = [
+  'cancelAnimationFrame',
+  'webkitCancelAnimationFrame',
+  'mozCancelAnimationFrame',
+  'msCancelAnimationFrame',
+  'oCancelAnimationFrame',
+]
+
+function compatibleCancelAnimationFrame() {
+  for (let i = 0; i < methodMap.length; i++) {
+    const method = methodMap[i] as 'cancelAnimationFrame';
+    if (window[method]) {
+      return window[method];
+    }
+  }
+  return (handle: number) => {
+    clearTimeout(handle);
+  };
+}
+
+
+export const cancelAnimationFrame: CancelAnimationFrameFn = compatibleCancelAnimationFrame()

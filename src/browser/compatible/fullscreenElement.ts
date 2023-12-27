@@ -1,16 +1,26 @@
+const methodMap = [
+  'fullscreenElement',
+  'webkitFullscreenElement',
+  // Old WebKit
+  'webkitCurrentFullScreenElement',
+  'mozFullscreenElement',
+  'msFullscreenElement',
+  'oFullscreenElement',
+]
+
+function compatibleFullscreenElement(): Element | null {
+  for (let i = 0; i < methodMap.length; i++) {
+    const method = methodMap[i] as 'fullscreenElement'
+    if (document[method]) {
+      return document[method]
+    }
+  }
+  return null;
+}
+
 /**
- * 获取全屏ele
- * 可以判断当前是否全屏
+ * 全屏函数 兼容方式
  */
-export const fullscreenElement: Element | null =
-  document.fullscreenElement ||
-  // @ts-ignore
-  document.mozFullscreenElement ||
-  // @ts-ignore
-  document.webkitFullscreenElement ||
-  // @ts-ignore
-  document.msFullscreenElement ||
-  // @ts-ignore
-  document.oFullscreenElement;
+export const fullscreenElement: Element | null = compatibleFullscreenElement()
 
 

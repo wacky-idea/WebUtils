@@ -1,5 +1,7 @@
 export interface GpuInfo {
+  /** 显卡渲染器 */
   renderer: string;
+  /** 显卡厂商 */
   vendor: string;
 }
 /**
@@ -33,8 +35,11 @@ export function gpuInfo(): Promise<GpuInfo> {
 }
 
 export interface GeolocationInfo {
+  /** 纬度 */
   latitude: number;
+  /** 经度 */
   longitude: number;
+  /** 精确度 */
   accuracy: number;
 }
 
@@ -49,7 +54,6 @@ export function geolocationInfo(): Promise<GeolocationInfo> {
         const latitude = position.coords.latitude; // 纬度
         const longitude = position.coords.longitude; // 经度
         const accuracy = position.coords.accuracy; // 精确度
-
         resolve({
           latitude,
           longitude,
