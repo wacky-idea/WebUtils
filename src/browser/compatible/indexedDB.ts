@@ -6,7 +6,7 @@ const methodMap = [
   'oIndexedDB',
 ]
 
-function compatibleIndexedDB(): IDBFactory {
+function compatibleIndexedDB(): IDBFactory | null{
   for (let i = 0; i < methodMap.length; i++) {
     const method = methodMap[i] as 'indexedDB';
     if (window[method]) {
