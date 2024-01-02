@@ -19,4 +19,4 @@ function compatibleIndexedDB(): IDBFactory | null{
 /**
  * indexedDB 兼容方式
  */
-export const indexedDB: IDBFactory = compatibleIndexedDB()
+export const indexedDB: IDBFactory | null = compatibleIndexedDB()
