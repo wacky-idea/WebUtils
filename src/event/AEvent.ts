@@ -12,6 +12,14 @@ export class AEvent<T> {
     this.eventListeners.get(eventName)?.push(handler);
   }
 
+  one(eventName: string, handler: (data: T) => void): void {
+    const oneTimeHandler = (data: T) => {
+      handler(data);
+      this.off(eventName, oneTimeHandler);
+    };
+    this.on(eventName, oneTimeHandler);
+  }
+
   off(eventName: string, handler: (data: T) => void): void {
     const listeners = this.eventListeners.get(eventName);
     if (listeners) {
