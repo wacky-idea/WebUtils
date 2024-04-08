@@ -21,7 +21,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
       - run: git config --global user.email "g00665@163.com"
       - run: git config --global user.name "Aomd"
-      - run: npm ci
+      - run: npm install
       - run: npm run build
       - run: npm publish
         env:
