@@ -11,7 +11,7 @@ export type RequestAnimationFrameFn = | ((callback: FrameRequestCallback) => num
 function compatibleRequestAnimationFrame(): RequestAnimationFrameFn {
   for (let i = 0; i < methodMap.length; i++) {
     const method = methodMap[i] as 'requestAnimationFrame'
-    if (method in window) {
+    if (typeof window !== 'undefined' && method in window) {
       return window[method]
     }
   }

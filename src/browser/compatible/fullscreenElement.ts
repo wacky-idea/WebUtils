@@ -11,7 +11,7 @@ const methodMap = [
 function compatibleFullscreenElement(): Element | null {
   for (let i = 0; i < methodMap.length; i++) {
     const method = methodMap[i] as 'fullscreenElement'
-    if (document[method]) {
+    if (typeof document !== 'undefined' && document[method]) {
       return document[method]
     }
   }
