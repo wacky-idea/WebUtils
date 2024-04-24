@@ -14,15 +14,23 @@ export function fileToBase64(file: File): Promise<string> {
 
 /**
  * blob 转 base64
- * @param blob
- * @returns
+ *
+ * @export
+ * @param {Blob} blob
+ * @param {boolean} [delPrefix=false]
+ * @return {*}  {Promise<string>}
  */
-export function blobToBase64(blob: Blob): Promise<string> {
+export function blobToBase64(blob: Blob, delPrefix = false): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      const base64 = delBase64WithPrefix(reader.result as string)
+      let base64 = ''
+      if (delPrefix) {
+        base64 = delBase64WithPrefix(reader.result as string)
+      } else {
+        base64 = reader.result as string
+      }
       resolve(base64);
     };
 

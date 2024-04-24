@@ -150,7 +150,7 @@ export function base64ToBlob(base64WithPrefix: string, mimeType: string) {
  */
 export function delBase64WithPrefix(base64WithPrefix: string) {
   // 匹配并提取不带"data"前缀的Base64部分
-  const regex = /^data:[^;]+;base64,([^/]+)/;
+  const regex = /^data:[^;]+;base64,([^\"\']*)/;
   const matches = base64WithPrefix.match(regex);
   if (matches && matches.length > 1) {
     return matches[1]
