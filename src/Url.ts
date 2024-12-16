@@ -6,7 +6,7 @@ import { StringUtil } from "./index"
  * @param key
  * @returns
  */
-export const getUrlParams = (key: string) => {
+export function getUrlParams(key: string) {
   return new URL(location.href).searchParams.get(key)
 }
 
@@ -157,4 +157,32 @@ export function delBase64WithPrefix(base64WithPrefix: string) {
   } else {
     throw new Error('数据解析异常')
   }
+}
+
+/**
+ * 从 URL 中提取 参数 并存储到 localStorage，然后清除 URL 中的 参数
+ *
+ * @export
+ * @param {string} [paramName='name'] url 参数 key
+ * @param {string} [storageKey=paramName] 储存 key
+ */
+export function extractAndStoreUrlParam(paramName: string = 'name', storageKey: string = paramName): void {
+ const urlParams = new URLSearchParams(window.location.search);
+ const urlParam = urlParams.get(paramName);
+
+ if (urlParam) {
+   // 存储 参数 到 localStorage
+   localStorage.setItem(storageKey, urlParam);
+   
+   // 从 URL 中移除 参数 参数
+   urlParams.delete(paramName);
+   
+   // 构建新的 URL（不包含 参数 参数）
+   const newUrl = window.location.pathname + 
+     (urlParams.toString() ? `?${urlParams.toString()}` : '') + 
+     window.location.hash;
+   
+   // 使用新 URL 重新加载页面
+   window.location.replace(newUrl);
+ }
 }
